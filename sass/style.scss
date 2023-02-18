@@ -1,0 +1,188 @@
+
+
+
+@import 'reset';
+@import 'mixin';
+@import 'conf';
+
+body{
+    background-color: black;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    form{
+        border:1rem solid white;
+        border-radius: 1rem;
+
+        width: min(500px,90%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        padding: 1rem;
+
+        .form-part{
+            display: flex;
+            flex-direction: column;
+
+            border-radius: 1rem;
+
+            width: 90%;
+            padding: 0.2rem;
+
+            position: relative;
+
+            label{
+                color: white;
+                animation: text-color 1s infinite;
+            }
+
+            input{
+                padding: 0.4rem;
+
+                border: 3px solid;
+                border-radius: .6rem;
+
+                &:focus-visible{
+                    outline: none;
+                }
+
+                &::placeholder{
+                    color:gray;
+                    font-size: 0.6rem;
+                }
+                
+                &:focus{
+                    border-color:  orangered;
+                    animation: signal 1s infinite ; 
+                }
+
+                &:valid{
+                    border-color: green;
+                }
+
+                &:invalid:not(:focus){
+                    border-color: red;
+                    animation: shake 0.4s;
+                }    
+            }
+
+            .fa-check{
+                position: absolute;
+                bottom: 10px;
+                right: 10px;
+                color:gray;
+                border: 1px solid gray;
+                border-radius: 50%;
+                padding: 0.2rem;
+                display: none;
+            }
+        }
+
+        button{
+            margin-top: 1rem;
+            display: inline-block;
+
+            padding: 0.4rem 1rem;
+            border-radius: 0.8rem;
+        }
+    }
+
+        // -0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0- //
+            // CHECK ICON STATUS //
+    .form-part:has(input:invalid) .fa-check {
+        display: block;
+        border:2px solid red;
+        color: red;
+        font-weight: 600;
+    }
+    .form-part:has(input:focus) .fa-check {
+        display: none;
+    }
+    .form-part:has(input:valid) .fa-check {
+        display: block;
+        border:2px solid green;
+        color: green;
+        font-weight: 600;
+    }
+    .form-part:has(input:placeholder-shown:not(:focus)) .fa-check{
+        display: none;
+    }
+    // -0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0- //
+
+        // -0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0- //
+            // PREVENT INVALID ANIMATION START AT THE BEGINNIG //
+    .form-part:has(input:placeholder-shown:not(:focus)) input:invalid{
+        animation: none;
+        border-color: gray;
+    }
+    // -0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0- //
+
+        // -0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0- //
+            // PREVENT FOCUS ANIMATION WHEN INPUT İS VALİD //
+    .form-part:has(input:valid) :focus {
+        animation: none;
+    }
+    // -0-0-0-0-0-0-0-0-0-0-0-0-0-0-0-0- //
+    
+    .form-part:has(input:not(:focus)) label{
+        animation:none;
+    }
+    
+}
+
+form:valid button{
+    background-color: white;
+    color:green;
+    border:none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+form:valid{
+    background-color: green;
+}
+
+@keyframes shake{
+    0%,100%{
+        transform: translateX(0);
+    }
+    10%,30%,50%,70%,90%{
+        transform: translateX(-2%);
+    }
+    20%,40%,60%,80% {
+        transform: translateX(2%);
+    }
+}
+
+@keyframes signal{
+    0%{
+        border:3px solid orangered
+    }
+    50%{
+        border:3px solid transparent;
+    }
+    100%{
+        border:3px solid orangered
+    }
+
+}
+
+@keyframes text-color{
+    0%{
+        color:orangered
+    }
+    50%{
+        color:white
+    }
+    100%{
+        color:orangered
+    }
+
+}
+
+    
+
